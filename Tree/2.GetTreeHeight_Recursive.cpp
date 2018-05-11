@@ -22,6 +22,7 @@ struct Node
 //---------------------------------------------------------------
 
 // the height is the # of edges on the longest path
+// O(n)
 int GetTreeHeight_Recursive(Node *root)
 {
 	if(root == NULL)
