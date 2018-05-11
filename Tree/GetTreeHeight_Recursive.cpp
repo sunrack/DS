@@ -1,8 +1,13 @@
 #include <iostream>
+using namespace std;
+
+// https://onlinegdb.com/SJII8umRM
+
+//---------------------------------------------------------------
 
 struct Node
 {
-	int data,
+	int data;
 	Node *left;
 	Node *right;
 
@@ -14,36 +19,44 @@ struct Node
 	}
 };
 
-int Height(Node *root)
+//---------------------------------------------------------------
+
+// the height is the # of edges on the longest path
+int GetTreeHeight_Recursive(Node *root)
 {
 	if(root == NULL)
 	{
-		return 0;
+		return -1;
 	}
 	else
 	{
-		int h1 = Height(root->left);
-		int hr = Height(root->right);
+		int hL = GetTreeHeight_Recursive(root->left);
+		int hR = GetTreeHeight_Recursive(root->right);
 
-		if(h1 > hr)
-		{`
-			return (hl + 1);
+		if(hL > hR)
+		{
+			return (hL + 1);
 		}
 		else
 		{
-			return (hr + 1);
+			return (hR + 1);
 		}
 	}
 }
 
-void main()
+//---------------------------------------------------------------
+
+int main()
 {
+	//		    1
+	//	   2		3
+	// 4	  5
+	//
 	Node *root = new Node(1);
 	root->left = new Node(2);
 	root->right = new Node(3);
 	root->left->left = new Node(4);
 	root->right->right = new Node(5);
 
-	cout<<Height(root)<<endl;
-
+	cout<<GetTreeHeight_Recursive(root)<<endl;
 }
