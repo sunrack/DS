@@ -58,6 +58,8 @@ Node *GetBST()
 // 		if key < node, node.left = f(node.left)
 //      if key > node, node.right = f(node.right)
 // 3. return note (so previous call can set left/right properly)
+// 
+// O(n)
 
 Node *BST_Insert_RE(Node *node, int key)
 {
@@ -93,6 +95,8 @@ Node *BST_Insert_RE(Node *node, int key)
 // 		if existing, return NULL
 // 3. new node and update parent
 // 4. return the newed node 
+// 
+// O(n)
 
 Node *BST_Insert_IT(Node *root, int key)
 {
