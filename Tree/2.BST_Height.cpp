@@ -21,9 +21,42 @@ struct Node
 };
 
 //---------------------------------------------------------------
-
 // the height is the # of edges on the longest path
 // O(n)
+int GetTreeHeight_Recursive(Node *root)
+{
+	if(root == NULL)
+	{
+		return -1;
+	}
+	else
+	{
+		int hL = GetTreeHeight_Recursive(root->left);
+		int hR = GetTreeHeight_Recursive(root->right);
+
+		// get the highest child
+		if(hL > hR)
+		{
+			return (hL + 1);
+		}
+		else
+		{
+			return (hR + 1);
+		}
+	}
+}
+
+//---------------------------------------------------------------
+// the height is the # of edges on the longest path
+// O(n)
+//
+// 1. if root == NULL, return 0
+// 2. push first level into queue
+// 3. process current level(count = queue size): pop each node and push its children
+//    when done, if still has node for next level(queue is not empty), height++
+// 4. return height
+//
+
 int GetTreeHeight_Iterative(Node *root)
 {
 	int height = 0;
@@ -34,6 +67,7 @@ int GetTreeHeight_Iterative(Node *root)
 		return height;
 	}
 
+	// queue first level
 	list.push(root);
 
 	while(!list.empty())
@@ -42,6 +76,7 @@ int GetTreeHeight_Iterative(Node *root)
 
 		while(count > 0)
 		{
+			// pop current level and push their children
 			Node *node = list.front();
 			list.pop();
 			count--;
@@ -57,6 +92,7 @@ int GetTreeHeight_Iterative(Node *root)
 			}
 		}
 
+		// still has nodes for next level
 		if(!list.empty())
 		{
 			height++;
@@ -96,5 +132,8 @@ int main()
 	root->left->left = new Node(4);
 	root->right->right = new Node(5);
 
-	cout<<GetTreeHeight_Iterative(root)<<endl;
+	cout<<"Iterative = "<<GetTreeHeight_Iterative(root)<<endl;
+
+
+	cout<<"Recursive = "<<GetTreeHeight_Recursive(root)<<endl;
 }
